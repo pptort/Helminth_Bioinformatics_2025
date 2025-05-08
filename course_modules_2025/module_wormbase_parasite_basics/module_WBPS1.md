@@ -1,4 +1,6 @@
-# WormBase ParaSite
+# WormBase ParaSite Basics 
+
+Updated by Jose Tort (2025)
 
 ## Table of contents
 1. [Overview and Aims](#intro)
