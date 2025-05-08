@@ -1,4 +1,5 @@
-# WormBase ParaSite (part 2)
+# WormBase ParaSite Tools 
+Updated by Jose Tort (2025)
 
 ## Table of contents
 1. [Overview and Aims](#aims)
