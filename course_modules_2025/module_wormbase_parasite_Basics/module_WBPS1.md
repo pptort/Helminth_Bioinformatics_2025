@@ -429,6 +429,191 @@ Go to the gene page for the _Trichuris muris_ gene TMUE_2000008757 and retrieve 
     <details closed><summary>Hint</summary>Go back to the TMUE_2000008757 gene page and look in the "Phenotypes" tab.</details>
 [↥ **Back to top**](#top)
 
+
+---
+## JBROWSE - The genome browser <a name="genome_browser"></a>
+
+A genome browser is a tool that allows you to visualise a genome assembly and its features, together with experimental data aligned to the genome. There are several commonly used genome browsers in bioinformatics, each with different features. In WormBase ParaSite we have integrated two: ENSEMBL AND JBROWSE. 
+
+* [Ensembl](https://www.ebi.ac.uk/training/online/courses/ensembl-browsing-genomes/what-is-ensembl/) is a genome browser originally developed to visualize mammalian genomes and now used to browse a large catalog of genomes across the tree of life. WormBase ParaSite has an instance of the Ensembl browser built in, and is the one we have used so far for visualizing genes and their genomic context.  
+
+* [JBrowse 1](https://jbrowse.org/jbrowse1.html) - this is the genome browser that we’ll be using today. WormBase ParaSite has an instance of JBrowse for every genome that it hosts. The Apollo project is a well known extension of JBrowse, which, like Artemis, can be used to edit gene models.
+
+There are many other genome browsers for different needs out there. Feel free to explore them at your own time: [Integrative Genomics Viewer (IGV)](https://igv.org/),[UCSC Genome Browser](https://genome.ucsc.edu/),[Artemis/Artemis Comparison Tool (ACT)](https://www.sanger.ac.uk/tool/artemis-comparison-tool-act/) and the new version of Jbrowse: [Jbrowse 2](https://jbrowse.org/jb2/) 
+
+
+---
+### Using JBrowse: basic functionality <a name="Jbrowse_basics"></a>
+
+In this example we’ll introduce the basic functionality of WormBase ParaSite's JBrowse 1, and demonstrate how to use the various tracks.
+
+1. Navigate to the _S. mansoni_ genome page and select the “Genome Browser (JBrowse)” icon.
+
+![](figures/jbrowse_1.png)
+
+- Each scaffold is represented from its 5-prime end to its 3-prime end (relative to the forward strand).
+- You can navigate to different scaffolds using the drop down menu in the middle of the screen, or by typing coordinates into the text box.
+- Different types of data aligned to the genome are represented as tracks. When you first open JBrowse, one track will be on by default: the reference gene set.
+
+For this example, we’ll consider that you’re interested in the gene Smp_312440.
+
+2. Start by typing the identifier into the search box and clicking “Go” to navigate to the gene. 
+3. Zoom in by clicking the large magnifying glass with a “+” symbol until the reference sequence resolves.
+
+![](figures/jbrowse_2.png)
+
+Here, you can see the forward and reverse DNA strands, together with the six possible translational reading frames (3 forward and 3 reverse).
+
+4. Zoom out again so that you have the whole gene model in your field of view.
+5. To extract sequence information about the gene, click the gene model such that a dialogue box pops up.
+
+![](figures/jbrowse_3.png)
+
+Scrolling down the content of the box, you can extract genomic or cDNA sequence, or the sequence of specific subfeatures (specific exons or UTRs, for example).
+
+Alternatively, you may wish to extract the genomic sequence of a whole region:
+
+6. Click the arrow next to the “Reference sequence” track label in the top left of the screen, select “Save track data”, then download the sequence as a FASTA
+file.
+
+![](figures/jbrowse_4.png)
+
+[↥ **Back to top**](#top)
+
+---
+### Visualizing data on Tracks  <a name="tracks"></a>
+
+We can also use JBrowse to view other types of data aligned to the genome. 
+
+7. Click the “select tracks” button in the top left of the screen.
+
+![](figures/jbrowse_5.png)
+
+For most species, in addition to the gene model (“Genome Annotation”) track, there are two additional main types of track:
+
+- Repeat regions tracks - repetitive regions of the genome are annotated as part of WormBase ParaSite’s production process. 
+- RNASeq tracks - WormBase ParaSite has a process of finding and aligning RNASeq data in the sequencing archives for our species of interest. These can be useful, for example, for checking that a gene model is well supported by expression data, or seeing in which life stages, or under which conditions, a gene of interest is transcribed. 
+  - For species with a lot of publicly available RNA-Seq data, such as _S. mansoni_, the easiest way to explore the samples that are available is by using the facets on the left hand side. The samples are organised by their metadata.
+
+Let’s say you want to see in which life stages Smp_312440 is expressed:
+
+8. Click the “developmental stage” facet 
+9. Select a few of the available libraries (in the example below we've selected 3h schistosomules and miracidia) and click “back to browser”.
+
+![](figures/jbrowse_6.png)
+
+- Each track represents a different sequencing library, and shows the number of reads that have been aligned at each position. 
+- By mousing over the histogram, you can see the exact number of aligned reads at each base. 
+- We can see that a lot of the tracks show biological replicates of the same condition.- We can use combination tracks to combine replicate tracks “on the fly”, so we use up less space on the screen.
+
+* In the main menu at the top of the page, select “Track” and “Add combination track”.
+
+A new empty track should appear. You can then drag and drop existing tracks in to combine them. When you add additional tracks, a dialogue box should appear for you to select the type of operation to use to combine them. For this example, we’ll choose “addition”: you’ll now see the total number of reads across both selected libraries that aligned at each region. Note that different set operations can be performed, including subtraction, multiplication and division; these might make sense depending on the tracks that are being combined and the information that you’re interested in.
+
+![](figures/jbrowse_7.png)
+
+As well as seeing that Smp_312440 is expressed in these conditions, we can use the coverage histograms to assess the quality of the gene model. Most parasitic worm genomes are annotated with automated pipelines. Whilst annotation algorithms can often be very accurate, they are not infallible. Most of the gene models that you look at in WormBase ParaSite will not have been checked by a human curator, so it is wise not to take them as “truth" unless you verify that they agree with any evidence that is available.
+
+![](figures/jbrowse_8.png)
+
+In this case we can see that each of the exons in the gene model have got good RNASeq coverage, with no additional exons suggested by the RNASeq data.
+
+[↥ **Back to top**](#top)
+
+---
+### Motif searching  <a name="Motif_Search"></a>
+
+It might be useful to have a quick, visual way of showing where certain motifs (short, defined DNA sequences) are found in the reference sequence. JBrowse offers a quick and flexible way to do this. We’ll demonstrate this by generating a track for the TATA box sequence (a sequence found in the promoter region of many eukaryotic genes). The consensus TATA sequence is TATA[A/T]A[A/T] (where [A/T] indicates that either A or T could be present at that position).
+
+* In JBrowse, select “Track” from the main menu bar, followed by “Add sequence search track”.
+* Type the motif that we’re searching for in the dialogue box, in this format: TATA[AT]A[AT], and tick “Treat as regular expression”. This means that the [AT] section of the motif will be interpreted as a regular expression (ie, the base in this position can be either A or T). Click “Search”.
+
+![](figures/jbrowse_9.png)
+
+Going back to the main JBrowse window, a new track has appeared with all instances of the motif marked. Zooming in to the 5-prime end of Smp_312440, we can see that one of these is well positioned to be our TATA box.
+
+[↥ **Back to top**](#top)
+
+---
+### Visualising your own data <a name="Data_Upload"></a>
+
+As well as looking at publicly available data, you can use WormBase ParaSite JBrowse to visualise your own data. Imagine you have generated transcriptomic data on a certain stage or condition on your favorite parasite. You might want to map these data to the genome, and compare them to the already available data. For this you need to map the data to the genome (we will be viewing how to do this in other module) and generate a mapping file, placing reads at the correspoding positions over the genome.
+
+We’ll demonstrate how to do this using a BAM file that we have provided for you. A BAM file is a type of file format used in genomics to store DNA sequencing data in a compressed and indexed manner.
+As a BAM file, this file is binary, so trying to read it as it is won’t be very informative. To read it we should first convert it into the SAM file format (non-binary, human-readable). We can do that with samtools:  [Samtools](http://www.htslib.org/doc/samtools.html) is a useful software package for manipulating SAM and BAM files.
+
+
+
+<details closed>
+<summary> <- Click here to read more about the BAM and SAM file formats at your own time.</summary>   
+
+The SAM file starts with a header section. All header lines begin with a ‘@’ character.
+
+![](figures/jbrowse_10.png)
+
+Move down through the file (by pressing the space bar) until you come to the alignment section. Here, each line represents a sequencing read (though be aware that the lines are long, so a single line will probably wrap around your terminal window a few times). Some of the key fields are labelled below:
+
+![](figures/jbrowse_11.png)
+
+The full SAM specification is available here: http://samtools.github.io/hts-specs/
+
+If you’ve looked at RNA sequencing data before, you may notice something unusual about the reads in this file: they’re very long! Until recently, next generation sequencing reads were typically ~100bp in length, so transcripts had to be sequenced in short sections at high coverage and reconstructed computationally. This BAM file contains “IsoSeq” data, from the Pacific Biosciences platform, whereby full length transcripts have been sequences in their entirety.
+
+
+</details>
+
+
+
+In the module 3 data directory you should find a file named SRR3223448.bam. 
+
+We will use a samtools command to convert the BAM file to a SAM file so we can have a look at how it’s structured. Move to the module 3 data directory and type the following into your terminal:
+
+    ```bash
+    samtools view -h SRR3223448.bam | less
+    ```
+<br>
+<br>
+
+Before we can visualise the file in JBrowse, we need to create an index. An index is another file that often accompanies a BAM file, and acts like a table of contents. 
+Software such as JBrowse can look inside the index file and find where exactly in the corresponding BAM file it needs to look, without having to go through all of the reads (which would be computationally very expensive). BAM index files should have exactly the same name as their corresponding BAM file, with the addition of a .bai suffix. The BAM file in the directory is already indexed (You should see a file called SRR3223448.bam.bai in your working directory.)
+
+If you would prefer to index the bam file yourself, you can do it using samtools. Type:
+
+    ```bash
+    samtools index SRR3223448.bam
+    ```
+
+You should now see a file called SRR3223448.bam.bai in your working directory. We can now load the file into WormBase ParaSite JBrowse.
+
+11. To add the BAM track to our Jbrowse instance:
+    - select the “Track” menu option in the top left of the screen.
+    - Selecting “Open track file or URL” will open a dialogue box giving you an option to view a file that is either on your file system, or accessible via a URL.
+    - Select both the BAM file and the index file. JBrowse guesses the file type from the name, but we have an option to correct it if it gets it wrong. We can see that it’s right this time.
+    - Click “Open”.
+
+![](figures/jbrowse_12.png)
+<br>
+
+Now we can see the reads aligned to the genome. 
+
+Notice that this RNA-Seq data is stranded- this means that the library preparation protocol preserved information on which end of the RNA molecule was 5-prime and which end was 3-prime, so we can infer which strand of DNA it was transcribed from. This information is encoded in the BAM file, and JBrowse colours the reads accordingly:
+- reads aligning to the forward strand are $\textcolor{pink}{\textsf{pink}}$
+- and reads aligning to the reverse strand are $\textcolor{purple}{\textsf{purple}}$
+
+### _EXERCISE 3 - JBrowse data comparison_ <a name="jbrowse_exercise"></a>
+
+We have provided in the module's folder an additional file  named somules_isoseq_sorted.bam, generated from another experiment.
+Use samtools to view the reads within the file.   
+Load the file and compare to the one you just recently uploaded.   
+What are the differences?     
+
+
+
+[↥ **Back to top**](#top)
+
+
+
+
 ---
 ## BioMart <a name="biomart"></a>
 
